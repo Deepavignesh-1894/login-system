@@ -18,6 +18,10 @@ mongoose.connect(process.env.MONGO_URI, {
 const authRoutes = require('./routes/auth');
 const studentRoutes = require('./routes/student'); // You’ll create this next
 
+app.get('/', (req, res) => {
+  res.send('Server is live. Use the API routes like /register or /login.');
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/student', studentRoutes); // New route
 
