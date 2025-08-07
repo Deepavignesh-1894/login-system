@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Student Request</title>
+</head>
+<body>
+  <h2>Student Request Form</h2>
+  <form id="requestForm">
+    <label>Student ID:</label><br>
+    <input type="text" name="studentId" value="22BEIT001"><br><br>
+
+    <label>Subject:</label><br>
+    <input type="text" name="subject" value="Math"><br><br>
+
+    <label>Reason:</label><br>
+    <input type="text" name="reason" value="Absent due to fever"><br><br>
+
+    <label>Proof URL:</label><br>
+    <input type="text" name="proofUrl" value="https://example.com/proof.jpg"><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="response" style="margin-top: 20px;"></div>
+
+  <script>
+    document.getElementById('requestForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const data = {
+        studentId: e.target.studentId.value,
+        subject: e.target.subject.value,
+        reason: e.target.reason.value,
+        proofUrl: e.target.proofUrl.value,
+      };
+
+      const res = await fetch('http://localhost:3000/api/student/send-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      document.getElementById('response').textContent = JSON.stringify(result);
+    });
+  </script>
+</body>
+</html>
